@@ -8,7 +8,7 @@
                       <p class="card-text">blablabala</p>
                   </div>
                   <div class="card-footer bg-transparent border-0">
-                      <a href="<?= base_url() ?>produk/idkategori" class="btn btn-outline-primary">Cari</a>
+                      <a href="<?= filter_var(base_url(), FILTER_DEFAULT) ?>produk/idkategori" class="btn btn-outline-primary">Cari</a>
                   </div>
               </div>
           </div>
