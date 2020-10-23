@@ -1,5 +1,5 @@
 <body class="bg-gradient-primary">
-<body style="background-image: url('<?= base_url('assets/img/userb.jpg'); ?>');">
+<body style="background-image: url('<?= filter_var(base_url('assets/img/userb.jpg'), FILTER_DEFAULT); ?>');">
 
     <div class="container">
 
