@@ -16,6 +16,7 @@
         <div class="card-header"><i class="fas fa-table"></i> Tabel Produk</div>
         <div class="card-body">
           <?= $this->session->flashdata('message'); ?>
+					<?= esc_html ($this->session->flashdata('message'); ?>
           <div class="flash-datap" data-flashdatap="<?= $this->session->flashdata('flashp'); ?>"></div>
 
           <a href="<?= filter_var(base_url('admin/addProduk'), FILTER_DEFAULT); ?>" class="btn btn-success"><i class="fas fa-plus"></i> Tambah</a>
