@@ -43,7 +43,7 @@
                                 <a class="small" href="">Lupa Password?</a>
                             </div>
                             <div class="text-center">
-                                <a class="small" href="<?= base_url('auth'); ?>">Sudah Punya Akun? Login!</a>
+                                <a class="small" href="<?= filter_var(base_url('auth'), FILTER_DEFAULT); ?>">Sudah Punya Akun? Login!</a>
                             </div>
                         </div>
                     </div>
