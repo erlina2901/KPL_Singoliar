@@ -16,7 +16,7 @@
                     
                     <div class="row">
                         <div class="col-lg-4">
-                            <a href="<?= base_url(); ?>member" class="btn btn-success"><i class="fa fa-chevron-circle-left mr-1" aria-hidden="true"></i>Kembali</a>
+                            <a href="<?= filter_var(base_url(), FILTER_DEFAULT); ?>member" class="btn btn-success"><i class="fa fa-chevron-circle-left mr-1" aria-hidden="true"></i>Kembali</a>
                         </div>
                         <div class="col-lg-8">
                             <form class="form-inline ml-auto " method="post" action="<?= filter_var(base_url('alat/tambahPemesanan/' . $alat['id_alat']), FILTER_DEFAULT); ?>">
@@ -33,7 +33,7 @@
                             </form>
                         </div>
                     </div>
-                    <!-- <a href="<?= base_url(); ?>produk" class="btn btn-primary ml-3"><i class="fa fa-cart-plus mr-1" aria-hidden="true"></i>Pesan</a> -->
+                    <!-- <a href="<?= filter_var(base_url(), FILTER_DEFAULT); ?>produk" class="btn btn-primary ml-3"><i class="fa fa-cart-plus mr-1" aria-hidden="true"></i>Pesan</a> -->
                 </div>
             </div>
 
