@@ -2,8 +2,6 @@
 <link rel="stylesheet" type="text/css" href="assets/css/sb-admin-2.css">
 <div class="container">
     <div class="row mt-5">
-        <div class="col-md-3">
-        </div>
         <div class="col-md-6">
 
             <div class="card mb-5  align-self-center">
