@@ -8,7 +8,7 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link href="<?= base_url(); ?>assets/fontawesome/css/all.css" rel="stylesheet">
+  <link href="<?= filter_var(base_url(), FILTER_DEFAULT); ?>assets/fontawesome/css/all.css" rel="stylesheet">
   <title><?= $title; ?> </title>
 </head>
 <body style="background-image: url('<?= base_url('assets/img/aa.jpg'); ?>');"> 
@@ -24,17 +24,17 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link text-light" href="<?= base_url('member/index'); ?>">HOME <span class="sr-only">(current)</span></a>
+            <a class="nav-link text-light" href="<?= filter_var(base_url('member/index'), FILTER_DEFAULT); ?>">HOME <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-light" href="<?= base_url('about'); ?>">Contact Us</a>
+            <a class="nav-link text-light" href="<?= filter_var(base_url('about'), FILTER_DEFAULT); ?>">Contact Us</a>
           </li>
       </div>
 
       <!-- Nav Item - User Information -->
       <div class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img class="img-profile rounded-circle" src="<?= base_url('assets/img/avatar/') . $user['image']; ?>" style="width:30px; height:30px; background-color: #238e00; box-shadow: 3px 2px 10px black;">
+          <img class="img-profile rounded-circle" src="<?= filter_var(base_url('assets/img/avatar/') . $user['image'], FILTER_DEFAULT); ?>" style="width:30px; height:30px; background-color: #238e00; box-shadow: 3px 2px 10px black;">
         </a>
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
