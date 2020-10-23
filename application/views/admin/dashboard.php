@@ -43,7 +43,7 @@
         </div>
 
         <div class="col-xl mb-4">
-          <a href="<?= base_url() . 'admin/alat_berat' ?>">
+          <a href="<?= filter_var(base_url(),FILTER_DEFAULT) . 'admin/alat_berat' ?>">
             <div class="card border-left-primary shadow h-100 py-2">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
@@ -72,7 +72,7 @@
 
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl mb-4">
-          <a href="<?= base_url() . 'admin/sewa' ?>">
+          <a href="<?= filter_var(base_url(), FILTER_DEFAULT) . 'admin/sewa' ?>">
             <div class="card border-left-success shadow h-100 py-2">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
