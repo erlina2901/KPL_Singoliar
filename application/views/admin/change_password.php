@@ -6,7 +6,7 @@
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
               <li class="breadcrumb-item">
-                  <a href="<?= base_url("admin/") ?>dashboard">Dashboard</a>
+                  <a href="<?= filter_var(base_url("admin/"), FILTER_DEFAULT) ?>dashboard">Dashboard</a>
               </li>
               <li class="breadcrumb-item active">Profile</li>
           </ol>
@@ -17,7 +17,7 @@
               </div>
               <div class="row">
                   <div class="col-lg-6">
-                      <form action="<?= base_url('admin/change_password'); ?>" method="post">
+                      <form action="<?= filter_var(base_url('admin/change_password'), FILTER_DEFAULT); ?>" method="post">
                           <div class="form-group">
                               <label for="current_password">Password Lama</label>
                               <input type="password" class="form-control" id="current_password" name="current_password">
