@@ -13,7 +13,7 @@
             <!-- </div> -->
             <div class="row">
                 <div class="col-lg-6">
-                    <form action="<?= base_url('member/change_password'); ?>" method="post">
+                    <form action="<?= filter_var(base_url('member/change_password'), FILTER_DEFAULT); ?>" method="post">
                         <div class="form-group">
                             <label for="current_password">Password Lama</label>
                             <input type="password" class="form-control" id="current_password" name="current_password">
@@ -30,7 +30,7 @@
                             <?= form_error('new_password2', '<small class="text-danger" >', '</small>'); ?>
                         </div>
                         <div class="form-group">
-                            <a href="<?= base_url('member/index'); ?>">
+                            <a href="<?= filter_var(base_url('member/index'), FILTER_DEFAULT); ?>">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             </a>
                             <button type="submit" class="btn btn-primary">Ubah Password</button>
