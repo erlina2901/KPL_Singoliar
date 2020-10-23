@@ -11,7 +11,7 @@
             </div>
             <form class="row">
                 <div class="col-lg-10">
-                    <form action="<?= base_url('Alat/tambahPemesanan') ?>" method="POST">
+                    <form action="<?= filter_var(base_url('Alat/tambahPemesanan'), FILTER_DEFAULT) ?>" method="POST">
                         <div class="form-group row">
                             <label for="name" class="col-sm-2 col-form-label">Nama ALat</label>
                             <div class="col-sm-10">
