@@ -6,10 +6,10 @@
 		<!-- Breadcrumbs-->
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item">
-				<a href="<?= base_url("admin/") ?>dashboard">Dashboard</a>
+				<a href="<?= filter_var(base_url("admin/"), FILTER_DEFAULT) ?>dashboard">Dashboard</a>
 			</li>
 			<li class="breadcrumb-item">
-				<a href="<?= base_url("admin/") ?>alat_berat">Alat Berat</a>
+				<a href="<?= filter_var(base_url("admin/"), FILTER_DEFAULT) ?>alat_berat">Alat Berat</a>
 			</li>
 			<li class="breadcrumb-item active">Tambah Alat Berat</li>
 		</ol>
