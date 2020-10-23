@@ -193,6 +193,7 @@ fieldset[disabled] .datepicker table tr td.highlighted.focus {
   background-color: #ffbc42;
   border-color: #b37400;
 }
+
 .datepicker table tr td.today.disabled:hover,
 .datepicker table tr td.today[disabled]:hover,
 fieldset[disabled] .datepicker table tr td.today:hover,
