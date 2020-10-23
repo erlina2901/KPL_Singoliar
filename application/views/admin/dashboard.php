@@ -15,7 +15,7 @@
       <div class="row">
 
         <div class="col-xl mb-4">
-          <a href="<?= base_url() . 'admin/user' ?>">
+          <a href="<?= filter_var(base_url(), FILTER_DEFAULT) . 'admin/user' ?>">
             <div class="card border-left-primary shadow h-100 py-2">
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
