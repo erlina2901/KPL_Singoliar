@@ -14,7 +14,7 @@
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <a href="<?= filter_var(base_url('admin/profile'), FILTER_DEFAULT) ?>">
         <div class="image">
-          <img src="<?= base_url('assets/img/avatar/') . $admin['image']; ?>" class="img-rounded elevation-2" alt="User Image">
+          <img src="<?= filter_var(base_url('assets/img/avatar/'), FILTER_DEFAULT) . $admin['image']; ?>" class="img-rounded elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="<?= filter_var(base_url('admin/profile'), FILTER_DEFAULT) ?>" class="d-block"> <?= $admin['name']; ?> </a>
@@ -28,7 +28,7 @@
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
         <li class="nav-item">
-          <a href="<?= base_url() ?>admin/dashboard" class="nav-link">
+          <a href="<?= filter_var(base_url(), FILTER_DEFAULT) ?>admin/dashboard" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Dashboard
@@ -38,7 +38,7 @@
         
         <li class="nav-header">Pengguna</li>
         <li class="nav-item">
-          <a href="<?= base_url() ?>admin/user" class="nav-link">
+          <a href="<?= filter_var(base_url(), FILTER_DEFAULT) ?>admin/user" class="nav-link">
             <i class="nav-icon fas fa-users"></i>
             <p>
               User
