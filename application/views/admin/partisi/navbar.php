@@ -52,7 +52,7 @@
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-           <img class="img-rounded elevation-1" width="40px" height="30px" src="<?= base_url('assets/img/avatar/') . $admin['image']; ?> ">
+           <img class="img-rounded elevation-1" width="40px" height="30px" src="<?= filter_var(base_url('assets/img/avatar/'), FILTER_DEFAULT) . $admin['image']; ?> ">
           
         </a>
 
