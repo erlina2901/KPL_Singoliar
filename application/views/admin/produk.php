@@ -7,7 +7,7 @@
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="<?= base_url("admin/") ?>dashboard">Dashboard</a>
+          <a href="<?= filter_var(base_url("admin/"), FILTER_DEFAULT) ?>dashboard">Dashboard</a>
         </li>
         <li class="breadcrumb-item active">Produk</li>
       </ol>
@@ -41,7 +41,7 @@
                   <tr>
                     <td><?= $no++ ?></td>
                     <td>
-                      <img class="img-thumbnail" src="<?= base_url('assets/img/produk/') . $data->gambar; ?>" style="width:100px; height:100px;">
+                      <img class="img-thumbnail" src="<?= filter_var(base_url('assets/img/produk/'), FILTER_DEFAULT) . $data->gambar; ?>" style="width:100px; height:100px;">
                     </td>
                     <td><?= $data->nama_produk ?></td>
                     <td><?= $data->nama_penjual ?></td>
