@@ -1,0 +1,34 @@
+---------------------------------------------------------------------
+This file is a summary of the switches used in the en_GB affix file.
+A description of the affix file format is appended to the end of this
+
+In addition to the new suffix and prefix rules a modified TRY list is
+used in order to properly find spelling errors in words having . (period)
+' (apostrophe) and - (hyphen) within them. A replacement list for common
+mis-spellings has also been incorporated.
+
+The en_GB.aff affix file was created from scratch by David Bartlett and 
+Andrew Brown.
+
+15/12/02
+---------------------------------------------------------------------
+
+A re- Prefix
+a mis- Prefix
+B -able, -ability, last syllable of stem stressed, -ate words > 2 syllables
+b -ible, very basic rules, only dropped e
+C de- Prefix
+c over- Prefix
+D -ed, regular verb past tenses, last syllable of stem stressed
+d -ed, -ing, regular verb past tenses and adverbial form, last syllable NOT stressed
+E dis- Prefix for negation
+e out- Prefix
+F con- prefix
+f under - Prefix
+G -ing, ending for verbs, stress on last syllable of stem
+g -ability, last syllable NOT stressed
+H -th, -fold - number specific suffixes, both generated
+h -edly, adverbial, simplified rules
+I in- im- il- ir- Prefix, opposite of.
+i -edness, degree, simplified rules
+J -ings

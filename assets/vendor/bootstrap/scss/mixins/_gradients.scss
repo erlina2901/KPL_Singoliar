@@ -1,0 +1,56 @@
+tion">
+    <xsl:param name="value" />
+    <xsl:param name="type" />
+    <xsl:call-template name="_OutputTextElement">
+      <xsl:with-param name="tagName" select="'description'" />
+      <xsl:with-param name="value" select="$value" />
+      <xsl:with-param name="type" select="$type" />
+      <xsl:with-param name="outputTypeAttribute" select="'true'" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- pubDate -->
+  <xsl:template name="_OutputPubDate">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputDateElement">
+      <xsl:with-param name="tagName" select="'pubDate'" />
+      <xsl:with-param name="value" select="$value" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- language -->
+  <xsl:template name="_OutputLanguage">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputTextElement">
+      <xsl:with-param name="tagName" select="'language'" />
+      <xsl:with-param name="value" select="$value" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- copyright -->
+  <xsl:template name="_OutputCopyright">
+    <xsl:param name="value" />
+    <xsl:param name="type" />
+    <xsl:call-template name="_OutputTextElement">
+      <xsl:with-param name="tagName" select="'copyright'" />
+      <xsl:with-param name="value" select="$value" />
+      <xsl:with-param name="type" select="$type" />
+      <xsl:with-param name="outputTypeAttribute" select="'true'" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- lastBuildDate -->
+  <xsl:template name="_OutputLastBuildDate">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputDateElement">
+      <xsl:with-param name="tagName" select="'lastBuildDate'" />
+      <xsl:with-param name="value" select="$value" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- managingEditor -->
+  <xsl:template name="_OutputManagingEditor">
+    <xsl:param name="value" />
+    <xsl:param name="convertToAtom" select="'false'" />
+    <xsl:call-template name="_OutputAuthorOrEditor">
+      <xsl:with-param name="tagNa

@@ -1,0 +1,5 @@
+n\MMDevices\Audio\Capture\{27EFE52F-86CD-43CA-907B-DF760B671B5F} to SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Capture\{A20CF19A-547A-4DE0-8647-B058383A6B9A}
+AudMig: Device Ids match - {2}.\\?\hdaudio#func_01&ven_10ec&dev_0256&subsys_10431a70&rev_1000#4&e402d92&0&0001#{6994ad04-93ef-11d0-a3cc-00a0c9223196}\rtstereomixtopo/00010001 {2}.\\?\hdaudio#func_01&ven_10ec&dev_0256&subsys_10431a70&rev_1000#4&e402d92&0&0001#{6994ad04-93ef-11d0-a3cc-00a0c9223196}\rtstereomixtopo/00010001
+AudMig: Migrated {a45c254e-df1c-4efd-8020-67d146a850e0},2 property at 1
+AudMig: Migrated {9637b4b9-11ee-4c35-b43c-7b2452c993cc},1 property at 7
+AudMig: Migrated {259abffc-50a7-47ce-af08-

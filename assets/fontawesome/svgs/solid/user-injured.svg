@@ -1,0 +1,10 @@
+tMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>kCO8DLO+f6YdngvHfT/WyTPxGxSOGbijlcdaWGVbFU4=</dsig:DigestValue>
+    </asmv2:hash>
+  </file>
+  <file name="slick.core.js" destinationPath="$(runtime.windows)\SystemApps\Microsoft.MicrosoftEdgeDevToolsClient_8wekyb3d8bbwe\23\common\SlickGrid\" sourceName="slick.core.js" importPath="$(build.nttree)\MicrosoftEdgeDevToolsClient\23\common\SlickGrid\" sourcePath=".\">
+    <securityDescriptor name="WRP_FILE_DEFAULT_SDDL" />
+    <asmv2:hash xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Tra

@@ -1,0 +1,30 @@
+]*/
+    background-color: #FFFFFF; /*[{plugin-textbox-disabled-background-color}]*/
+    border: 1px solid #DBDDE6; /*[1px solid {plugin-textbox-disabled-border-color}]*/
+}
+
+input[type="checkbox"],
+input[type="radio"]
+ { 
+    border: none;
+    background-color: inherit;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+input[type="file"],
+input[type="image"]
+ { 
+    border: none;
+    background-color: inherit;
+    padding: 0;
+}
+
+/* TextArea styles */
+textarea {
+    font-family: "Segoe UI", Arial, sans-serif; /*[{plugin-font-family}, Arial, sans-serif]*/
+    font-size: 9pt; /*[{plugin-font-size}]*/
+    font-weight: normal; /*[{plugin-font-weight}]*/
+    color: #1E1E1E; /*[{plugin-color}]*/
+    background-color: #F6F6F6; /*[{plugin-textbox-background-color}]*/
+    border: 1px solid #DBDDE6; /*[1px solid {plugin-textbox-border-colo

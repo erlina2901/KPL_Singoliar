@@ -1,0 +1,12 @@
+t individual pages, the information is still captured. To view trace information, you can request the Trace.axd page for the Web site, which acts as a tracing information viewer.</value>
+  </data>
+  <data name="ConfiguringDebuggingandTracing11" type="System.String">
+    <value>Local requests only</value>
+  </data>
+  <data name="ConfiguringDebuggingandTracing12" type="System.String">
+    <value>Select this option to view trace information only for request from the host Web server (localhost).</value>
+  </data>
+  <data name="ConfiguringDebuggingandTracing13" type="System.String">
+    <value>All requests</value>
+  </data>
+  <data name="ConfiguringDebuggingandTracing14" typ

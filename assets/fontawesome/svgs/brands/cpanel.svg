@@ -1,0 +1,21 @@
+embly dependencyType="install">
+      <assemblyIdentity name="Microsoft-Windows-iSCSI_Initiator_UI-Server.Resources" version="10.0.18362.1" processorArchitecture="x86" language="en-US" publicKeyToken="31bf3856ad364e35" buildType="release" versionScope="nonSxS" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install">
+      <assemblyIdentity name="Microsoft-Windows-TerminalServices-RemoteApplications.Resources" version="10.0.18362.1" processorArchitecture="x86" language="en-US" publicKeyToken="31bf3856ad364e35" buildType="release" versionScope="nonSxS" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install">
+      <assemblyIdentity name="Microsoft-Windows-TerminalServices-RemoteDesktopSnapIn.Resources" version="10.0.18362.1" processorArchitecture="x86" language="en-US" publicKeyToken="31bf3856ad364e35" buildType="release" versionScope="nonSxS" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install">
+      <assemblyIdentity name="Microsoft-Windows-TerminalServices-SessionDirectory-Client.Resources" version="10.0.18362.1" processorArchitecture="x86" language="en-US" publicKeyToken="31bf3856ad364e35" buildType="release" versionScope="nonSxS" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="insta

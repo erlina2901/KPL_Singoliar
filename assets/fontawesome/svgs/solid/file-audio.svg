@@ -1,0 +1,13 @@
+   <xs:sequence>
+      <xs:element name="ActivatableClassAttribute" type="t:CT_ActivatableClassAttribute" minOccurs="0" maxOccurs="1000"/>
+    </xs:sequence>
+    <xs:attribute name="ActivatableClassId" type="t:ST_ActivatableClassId" use="required"/>
+    <xs:attribute name="ThreadingModel" type="t:ST_ThreadingModel" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="CT_OutOfProcessServer">
+    <xs:sequence>
+      <xs:element name="Path" type="t:ST_ExecutableAnyCase"/>
+      <xs:element name="Arguments" type="t:ST_NonEmptyString" minOccurs="0"/>
+      <xs:element name="Instancing" type="t:ST_Instancing"/>
+      <xs:el

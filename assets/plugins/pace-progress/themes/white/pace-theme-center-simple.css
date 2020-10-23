@@ -1,0 +1,45 @@
+-ms-touch-action: none;
+          cursor: move;
+          color: #999;
+          font-family: "Segoe UI";
+          font-size: 14px;
+      }
+
+      /* overview */
+
+      #overview {
+          box-sizing: border-box;
+          width: 283px;
+          height: 128px;
+          margin: 6px;
+          border: solid 1px #AAA;
+          display: -ms-grid;
+          -ms-grid-columns: (70px)[4];
+          -ms-grid-rows: 14px 70px 38px;
+      }
+
+      #overview .gripper {
+          -ms-grid-row: 1;
+          -ms-grid-column: 1;
+          -ms-grid-column-span: 4;
+      }
+
+      #overview .metric {
+          -ms-grid-row: 2;
+          font-family: "Segoe UI";
+          font-weight: 500;
+          -ms-user-select: none;
+      }
+
+      #overview .metric.box {
+          box-sizing: border-box;
+          width: 69px;
+          height: 69px;
+          margin: 1px;
+      }
+
+      #overview .metric.bar {
+          box-sizing: border-box;
+          height: 38px;
+          line-height: 38px;
+     

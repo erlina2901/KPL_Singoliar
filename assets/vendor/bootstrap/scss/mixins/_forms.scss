@@ -1,0 +1,231 @@
+   background-image:url(images/gradient_onblue.gif); 
+    background-repeat: repeat-x; 
+} 
+
+
+/*
+    Deselected tab.  The left most cell that contains the tab left corner .gif
+*/
+.deSTabLeft	{
+	background-color:#DEEAF3;
+	border-left: 0 solid #6699CC;
+	border-top: 0 solid #6699CC;
+	border-right: 0 solid #6699CC;
+	border-bottom: 1 solid #6699CC;
+	border-collapse: separate;
+	
+	background-image: url(images/DeSelectedTab_1x1.gif);
+	background-repeat: repeat-y;
+	background-position: 0 0;
+	cursor:hand;
+}
+
+/*
+    Deselected tab.  The center cell that contains the tab text
+*/
+.deSTabCenter	{
+	background-color:#DEEAF3;
+	border-left: 0 solid #6699CC;
+	border-top: 1 solid #6699CC;
+	border-right: 0 solid #6699CC;
+	border-bottom: 1 solid #6699CC;
+	font-family: tahoma;
+	font-size: .7em;
+	color: #000000;
+	font-weight: normal;
+	padding-bottom:2;
+	cursor:hand;
+}
+
+/*
+    Deselected tab.  The right most cell that contains the tab right corner .gif
+*/
+.deSTabRight	{
+	background-color:#DEEAF3;
+	border-left: 0 solid #6699CC;
+	border-top: 0 solid #6699CC;
+	border-right: 0 solid #6699CC;
+	border-bottom: 1 solid #6699CC;
+	
+
+	background-image: url(images/DeSelectedTab_1x1.gif);
+	background-repeat: repeat-y;
+	background-position: top right;
+	cursor:hand;
+}
+
+.gridRowStyle {
+    background-color:#FFFFFF;
+    font-family:tahoma; 
+    font-size: .7em;
+    color: black; 
+    letter-spacing:0; 
+    padding-left:30; 
+    padding-right: 20; 
+    padding-top: 3;
+    padding-bottom: 3;
+    
+}
+
+.gridRowStyle8 {
+    background-color:#FFFFFF;
+    font-size:.8em;
+    font-family:tahoma; 
+    color: black; 
+    letter-spacing:0; 
+    padding-left:30; 
+    padding-right: 20; 
+    padding-top: 3;
+    padding-bottom: 3;
+    
+}
+
+
+.gridPagerStyle {
+    color:#000000; 
+    background-color:#EEEEEE; 
+    font-size: .7em;
+    padding-left:30; 
+    padding-right: 20; 
+    padding-top: 3;
+    padding-bottom: 3;
+}
+
+.gridAlternatingRowStyle {
+    font-family:tahoma; 
+    font-size: .7em;
+    color: black; 
+    letter-spacing:0; 
+    padding-left:30; 
+    padding-right: 20; 
+    padding-top: 3;
+    padding-bottom: 3;
+    background-color: #CADBED; 
+    border-left: 1 solid #CCDDEF;
+    border-right: 1 solid #CCDDEF;
+}
+
+.gridAlternatingRowStyle8 {
+    font-family:tahoma; 
+    font-size:.8em;
+    color: black; 
+    letter-spacing:0; 
+    padding-left:30; 
+    padding-right: 20; 
+    padding-top: 3;
+    padding-bottom: 3;
+    background-color: #CADBED; 
+    border-left: 1 solid #CCDDEF;
+    border-right: 1 solid #CCDDEF;
+}
+
+.gridSelectedRowStyle {
+    background-color:#3266cc;
+    font-family:tahoma; 
+    font-size: .7em;
+    color: white;
+    letter-spacing:0; 
+    padding-left:30; 
+    padding-right: 20; 
+    padding-top: 3;
+    padding-bottom: 3;
+    border-left: 1 solid #CCDDEF;
+    border-right: 1 solid #CCDDEF;
+}
+
+.helloUser { 
+    font-weight:bold; 
+}
+
+.hide {
+    visibility:hidden;
+}
+
+.homePageContent {
+	padding:5;
+}
+
+/*
+    Footer region.
+*/
+
+.homePageFooter{
+	border-left: 0 solid #ffffff;
+	border-top: 0 solid #ffffff;
+	border-right: 0 solid #ffffff;
+	border-bottom: 5 solid #FFE17C;
+}
+
+/*
+    Repeating gif in the header region
+*/
+.homePageHeader{
+	background-image: url(images/headerGRADIENT_Tall.gif);
+	background-repeat: repeat-x;
+	background-position: left top;
+}
+
+
+/*
+    Hover style.  The left most cell that contains the tab left corner .gif
+*/
+.hoverTabLeft	{
+	background-color:#FFEBA6;
+	border-left: 0 solid #6699CC;
+	border-top: 0 solid #6699CC;
+	border-right: 0 solid #6699CC;
+	border-bottom: 1 solid #6699CC;
+	border-collapse: separate;
+	
+	background-image: url(images/DeSelectedTab_1x1.gif);
+	background-repeat: repeat-y;
+	background-position: 0 0;
+	cursor:hand;
+}
+
+/*
+    Hover style.  The center cell that contains the tab text
+*/
+.hoverTabCenter	{
+	background-color:#FFEBA6;
+	border-left: 0 solid #6699CC;
+	border-top: 1 solid #6699CC;
+	border-right: 0 solid #6699CC;
+	border-bottom: 1 solid #6699CC;
+	font-family: tahoma;
+	font-size: .7em;
+	color: #000000;
+	font-weight: normal;
+	padding-bottom:2;
+	cursor:hand;
+}
+
+/*
+    Hover style.  The right most cell that contains the tab right corner .gif
+*/
+.hoverTabRight	{
+	background-color:#FFEBA6;
+	border-left: 0 solid #6699CC;
+	border-top: 0 solid #6699CC;
+	border-right: 0 solid #6699CC;
+	border-bottom: 1 solid #6699CC;
+	
+
+	background-image: url(images/DeSelectedTab_1x1.gif);
+	background-repeat: repeat-y;
+	background-position: top right;
+	cursor:hand;
+}
+
+.itemDetailsContainer {
+    background-color:#EEEEEE;    
+}
+ 
+.lbBorders {
+    border-left: 1 solid #CCDDEF; border-bottom: 1 solid #CCDDEF;
+}
+
+.lightShadow {
+    background-image:url(images/gradient_onwhite.gif); 
+    background-repeat: repeat-x; 
+} 

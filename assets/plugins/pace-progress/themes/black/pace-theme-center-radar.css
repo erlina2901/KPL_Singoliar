@@ -1,0 +1,21 @@
+                              <span class="BPT-Style-SelectorAriaChangeState" style="display: none;">%%ariaChangeStateString%%</span>
+                                <span ##if(isSelectorChanged)##class="BPT-Changes-Highlight"##endIf##>%%selectorText%%</span><span> {</span>
+                            </div>
+                            ##endForEach##
+                            <div class="BPT-Changes-Properties">
+                                ##forEach(properties)##
+                                <div class="BPT-Changes-Property" data-change="%%changeState%%">
+                                    <span class="BPT-Style-PropertyAriaChangeState" style="display: none;">%%ariaChangeStateString%%</span>
+                                    <div class="BPT-Changes-PropertyName">
+                                        <span ##if(isNameChanged)##class="BPT-Changes-Highlight"##endIf##>%%name%%</span>:
+                                    </div>
+                                    <div class="BPT-Changes-PropertyValue">
+                                        <span ##if(isValueChanged)##class="BPT-Changes-Highlight"##endIf##>%%value%%</span><span ##if(isPriorityChanged)##class="BPT-Changes-Highlight"##endIf##>%%priority%%</span>;
+                                    </div>
+                                </div>
+                                ##endForEach##
+                            </div>
+                            <div class="BPT-Changes-BlockFooter" data-change="%%footerState%%">}</div>
+                        </div>
+                    </div>##endForEach##
+                </div>

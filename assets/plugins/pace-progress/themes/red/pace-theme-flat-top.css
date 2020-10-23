@@ -1,0 +1,25 @@
+cursor:hand;text-decoration:none;" onclick="showTOC()">
+          <xsl:call-template name="image">
+            <xsl:with-param name="src" select="'contents'"/>
+          </xsl:call-template>
+        </a>
+      </td>
+      <td>
+        <xsl:if test="count(//Data[@header])">
+          <a style="cursor:hand;text-decoration:none;">
+            <div style="float:right">
+              <xsl:call-template name="image">
+                <xsl:with-param name="src" select="'collapse'"/>
+                <xsl:with-param name="alt" select="'expand'"/>
+                <xsl:with-param name="id">e_c_<xsl:value-of select="$reportId"/></xsl:with-param>
+              </xsl:call-template>
+            </div>
+          </a>
+        </xsl:if>
+      </td>
+    </tr>
+  </table>
+</div>
+<xsl:if test="count(//Data[@header])">
+  <div expandable="1">
+  <xsl:attribute name="id">c_<xsl:value-of se

@@ -1,0 +1,746 @@
+
+		pITaskRecord.SetFieldAsDouble("DisplayFinish", DisplayFinish);
+	}
+
+
+	//
+	// Assumptions: i_SummaryTaskID exists
+	//
+	// TRANSACTION_REQUIREMENTS: WRITE
+	//
+	// A note about calculations:
+	//	ScheduledStart is the earliest of all children start dates
+	//  ScheduledFinish is the latest of all children end dates
+	//  ScheduledDuration is the difference of these two
+	//	Status is InProgress if at least one item is not "NotStarted" and is
+	//		"Complete" if all children are complete
+	//	Priority is the highest priority of all children
+	//
+	// NOTE: Caller must make sure this is a summary task.  That is, this task 
+	//		 has children and is not a Project Task.
+	//
+	function PDHF_CalculateSummaryDates(i_SummaryTaskID)
+	{
+		var EarliestScheduledStart = Number.MAX_VALUE;
+		var LatestScheduledFinish = 0;
+		var EarliestActualStart = Number.MAX_VALUE;
+		var LatestActualFinish = 0;
+		var StatusStarted = false;
+		var StatusCompleted = true;
+		var HighestPriority = GrooveProjectToolsetPriorityType_Low;
+		var LatestDisplayFinish = 0;
+
+		var pISummaryTaskRecord = RecordSetEngine.OpenRecord(i_SummaryTaskID);
+		var pIChildEnum = PDHF_GetChildrenFromRelationships(i_SummaryTaskID);
+		pIChildEnum.Reset();
+
+		if(false == pIChildEnum.HasMore() && i_SummaryTaskID != GrooveRunTimeData.GetItem("PROJECT_ID"))
+		{
+			GrooveDebugFunctions.DisplayAssert(0, "This is not a summary task!");
+			return;
+		}
+
+		// If the project does not contain any items, mark it as "not started"
+		var bIsProjectTask = (i_SummaryTaskID == GrooveRunTimeData.GetItem("PROJECT_ID"));
+		if(bIsProjectTask && false == pIChildEnum.HasMore())
+		{
+			StatusStarted = false;
+			StatusCompleted = false;	
+		}
+
+		while(pIChildEnum.HasMore())
+		{
+			var ChildID = pIChildEnum.OpenNext();
+			var pIChildRecord = RecordSetEngine.OpenRecord(ChildID);
+			var ScheduledStart = pIChildRecord.OpenField("ScheduledStart");
+			var ScheduledFinish = pIChildRecord.OpenField("ScheduledFinish");
+			var DisplayFinish = pIChildRecord.OpenField("DisplayFinish");
+			var Status = pIChildRecord.OpenField("Status");
+			var Priority = pIChildRecord.OpenField("Priority");
+
+			// Scheduled start
+			if(ScheduledStart < EarliestScheduledStart)
+			{
+				EarliestScheduledStart = ScheduledStart;
+			}
+
+			// Scheduled finish
+			if(ScheduledFinish > LatestScheduledFinish)
+			{
+				LatestScheduledFinish = ScheduledFinish;
+			}
+
+			// Display finish
+			if(DisplayFinish > LatestDisplayFinish)
+			{
+				LatestDisplayFinish = DisplayFinish;
+			}
+
+			// Status
+			StatusStarted |= (Status == GrooveProjectToolsetStatusType_InProgress || Status == GrooveProjectToolsetStatusType_Complete);
+			StatusCompleted &= (Status == GrooveProjectToolsetStatusType_Complete);
+
+			// Priority
+			if(Priority > HighestPriority)
+			{
+				HighestPriority = Priority;
+			}
+
+			// Actual start
+			if(GrooveProjectToolsetStatusType_InProgress == Status || 
+			   GrooveProjectToolsetStatusType_Complete == Status)
+			{
+				var ActualStart = pIChildRecord.OpenField("ActualStart");
+				if(ActualStart < EarliestActualStart)
+				{
+					EarliestActualStart = ActualStart;
+				}
+			}
+
+			// Actual finish
+			if(GrooveProjectToolsetStatusType_Complete == Status)
+			{
+				var ActualFinish = pIChildRecord.OpenField("ActualFinish");
+				if(ActualFinish > LatestActualFinish)
+				{
+					LatestActualFinish = ActualFinish;
+				}
+			}
+		}
+
+		// Scheduled start/finish/duration 
+		//
+		// Scheduled start is NOT calculated for the project item, as it is a
+		// fixed point in time.  
+		//
+		// Since the project start date is fixed in time, make sure we calculate
+		// the duration appropriately
+		var ScheduledStart = 0;
+		if(bIsProjectTask)
+		{
+			ScheduledStart = pISummaryTaskRecord.OpenField("ScheduledStart");
+			
+			// If the project is empty, LastScheduledFinish will still be uninitialized
+			if(0 == LatestScheduledFinish)
+			{
+				LatestScheduledFinish = ScheduledStart;
+			}
+		}
+		else
+		{
+			ScheduledStart = EarliestScheduledStart;
+			if(LatestScheduledFinish < ScheduledStart)
+			{
+				GrooveDebugFunctions.DisplayAssert(0, "Ruh-ro");
+				LatestScheduledFinish = ScheduledStart;
+			}
+
+			pISummaryTaskRecord.SetFieldAsDouble("ScheduledStart", ScheduledStart);
+		}
+
+		// Display date
+		if (0 == LatestDisplayFinish)
+			LatestDisplayFinish = LatestScheduledFinish;
+		pISummaryTaskRecord.SetFieldAsDouble("DisplayFinish", LatestDisplayFinish);
+
+		// Duration
+		var	Duration = PDHF_GetWorkWeekDuration(ScheduledStart, LatestScheduledFinish);
+		pISummaryTaskRecord.SetFieldAsDouble("ScheduledDuration", Duration);
+
+		// Scheduled Finish date
+		pISummaryTaskRecord.SetFieldAsDouble("ScheduledFinish", LatestScheduledFinish);
+
+		// Status
+		var NewStatus;
+		if(true == StatusCompleted)
+		{
+			NewStatus = GrooveProjectToolsetStatusType_Complete;
+		}
+		else if(true == StatusStarted)
+		{
+			NewStatus = GrooveProjectToolsetStatusType_InProgress;
+		}
+		else
+		{
+			NewStatus = GrooveProjectToolsetStatusType_NotStarted;
+		}
+
+		pISummaryTaskRecord.SetField("Status", NewStatus);
+
+		// Actual start
+		if(GrooveProjectToolsetStatusType_InProgress == NewStatus || 
+		   GrooveProjectToolsetStatusType_Complete == NewStatus)
+		{
+			pISummaryTaskRecord.SetFieldAsDouble("ActualStart", EarliestActualStart);
+		}
+
+		// Actual finish
+		if(GrooveProjectToolsetStatusType_Complete == Status)
+		{
+			pISummaryTaskRecord.SetFieldAsDouble("ActualFinish", LatestActualFinish);
+		}
+
+		// Priority
+		// Project task is a special kind of Summary task that does not have a priority field.
+		if (!bIsProjectTask)
+		{
+			pISummaryTaskRecord.SetField("Priority", HighestPriority);
+		}
+	}
+
+
+	//
+	// return a date (in ms) of the first work day occuring on or
+	// after i_Start
+	//
+	function PDHF_GetStartInWorkWeek(i_Start)
+	{
+		var pIIntl = GrooveScriptFunctions.CreateNewObject("Groove.Internationalization");
+		var pIDate = pIIntl.CreateDateFromRawDateTime(i_Start);
+		var pICalendar = pIIntl.CreateCalendar();
+		pICalendar.DateTime = pIDate;
+		
+		// begin at the start of the day
+		var Year = pICalendar.Get(GrooveIntlCalendarField_Year);
+		var Month = pICalendar.Get(GrooveIntlCalendarField_Month);
+		var Day = pICalendar.Get(GrooveIntlCalendarField_DayOfMonth);
+		pICalendar.Clear();
+		pICalendar.SetDate(Year, Month, Day);
+		
+		var DayOfWeek = pICalendar.Get(GrooveIntlCalendarField_DayOfWeek);
+
+		if(DayOfWeek == GrooveIntlCalendarDayOfWeek_Sunday)
+		{
+			pICalendar.Add(GrooveIntlCalendarField_DayOfWeek, 1);
+		}
+		else if(DayOfWeek == GrooveIntlCalendarDayOfWeek_Saturday)
+		{
+			pICalendar.Add(GrooveIntlCalendarField_DayOfWeek, 2);
+		}
+
+		return pICalendar.DateTime.RawDateTime;
+	}
+
+	//
+	// return the finish date (in ms) given the specified start
+	// and duration and work-week
+	//
+	function PDHF_GetFinishInWorkWeek(i_Start, i_Duration)
+	{
+		var pIIntl = GrooveScriptFunctions.CreateNewObject("Groove.Internationalization");
+		var pIDate = pIIntl.CreateDateFromRawDateTime(i_Start);
+		var pICalendar = pIIntl.CreateCalendar();
+
+		pICalendar.DateTime = pIDate;
+
+		var StartDayOfWeek = pICalendar.Get(GrooveIntlCalendarField_DayOfWeek);
+		var DurationDays = i_Duration / g_MSPERDAY;
+		var FullWorkWeeks = Math.floor(DurationDays / g_NUMWORKDAYS);
+		var PartialWorkWeekDays = DurationDays % g_NUMWORKDAYS;
+
+		GrooveDebugFunctions.DisplayAssert(StartDayOfWeek != GrooveIntlCalendarDayOfWeek_Saturday &&
+									StartDayOfWeek != GrooveIntlCalendarDayOfWeek_Sunday,
+									"Invalid start day of week");
+
+		// Weeks
+		pICalendar.Add(GrooveIntlCalendarField_WeekOfYear, FullWorkWeeks);
+
+		// Days
+		// wrap the weekend, if necessary
+		if (StartDayOfWeek + PartialWorkWeekDays > GrooveIntlCalendarDayOfWeek_Friday)
+		{
+			pICalendar.Add(GrooveIntlCalendarField_DayOfWeek, g_DAYSOFF);
+		}
+
+		pICalendar.Add(GrooveIntlCalendarField_DayOfWeek, PartialWorkWeekDays);
+
+		return pICalendar.DateTime.RawDateTime;
+	}
+
+	//
+	// return the duration in work-week days (in ms)
+	// assumptions: i_Start and i_Finish are work days
+	function PDHF_GetWorkWeekDuration(i_Start, i_Finish)
+	{
+		var pIIntl = GrooveScriptFunctions.CreateNewObject("Groove.Internationalization");
+		var pIStartDate = pIIntl.CreateDateFromRawDateTime(i_Start);
+		var pIFinishDate = pIIntl.CreateDateFromRawDateTime(i_Finish);
+
+		var DurationMS = pIFinishDate.GetElapsedTime(pIStartDate);
+		
+		// AMLATER - HACK
+		// if this task spans a switch of daylight savings time,
+		// we will lose an hour -- to work around this problem, we
+		// round the duration to the closest integer when calculating
+		// number of days
+		var DurationDays = Math.round(DurationMS / g_MSPERDAY);
+		var DurationWeeks = Math.floor(DurationDays / g_DAYSPERWEEK);
+		var PartialWeekDays = DurationDays % g_DAYSPERWEEK;
+
+		// account for wrap around a weekend
+		var pIStartCalendar = pIIntl.CreateCalendar();
+		pIStartCalendar.DateTime = pIStartDate;
+		var pIFinishCalendar = pIIntl.CreateCalendar();
+		pIFinishCalendar.DateTime = pIFinishDate;
+
+		var StartDayOfWeek = pIStartCalendar.Get(GrooveIntlCalendarField_DayOfWeek);
+		var FinishDayOfWeek = pIFinishCalendar.Get(GrooveIntlCalendarField_DayOfWeek);
+
+		// PartialWeekDays is a number less than g_DAYSPERWEEK
+		// but we need to account for a wrap around a weekend
+		if(FinishDayOfWeek < StartDayOfWeek)
+		{
+			PartialWeekDays -= g_DAYSOFF;
+		}
+
+		return ((DurationWeeks * g_NUMWORKDAYS) + PartialWeekDays) * g_MSPERDAY;
+	}
+
+	function PDHF_WorkWeekAddDuration(i_DateMS, i_WorkWeekDuration)
+	{
+		var pIIntl = GrooveScriptFunctions.CreateNewObject("Groove.Internationalization");
+		var pIDate = pIIntl.CreateDateFromRawDateTime(i_DateMS);
+		var pICalendar = pIIntl.CreateCalendar();
+		pICalendar.DateTime = pIDate;
+
+		var StartDayOfWeek = pICalendar.Get(GrooveIntlCalendarField_DayOfWeek);
+		var DurationDays = i_WorkWeekDuration / g_MSPERDAY;
+		var FullWorkWeeks = Math.floor(Math.abs(DurationDays) / g_NUMWORKDAYS);
+		var PartialWorkWeekDays = Math.abs(DurationDays) % g_NUMWORKDAYS;
+
+		// account for negative duration
+		if(i_WorkWeekDuration < 0)
+		{
+			FullWorkWeeks = -FullWorkWeeks;
+			PartialWorkWeekDays = -PartialWorkWeekDays;
+		}
+
+		GrooveDebugFunctions.DisplayAssert(StartDayOfWeek != GrooveIntlCalendarDayOfWeek_Saturday &&
+									StartDayOfWeek != GrooveIntlCalendarDayOfWeek_Sunday,
+									"Invalid start day of week");
+
+		// weeks
+		pICalendar.Add(GrooveIntlCalendarField_WeekOfYear, FullWorkWeeks);
+
+		// days
+		// wrap the weekend, if necessary
+		if(i_WorkWeekDuration >= 0)
+		{
+			if(StartDayOfWeek + PartialWorkWeekDays > GrooveIntlCalendarDayOfWeek_Friday)
+			{
+				pICalendar.Add(GrooveIntlCalendarField_DayOfWeek, g_DAYSOFF);
+			}
+		}
+		else
+		{
+			// PartialWorkDays is negative -- determine if we wrap around the weekend
+			if(StartDayOfWeek + PartialWorkWeekDays < GrooveIntlCalendarDayOfWeek_Monday)
+			{
+				pICalendar.Add(GrooveIntlCalendarField_DayOfWeek, -g_DAYSOFF);
+			}
+		}
+
+		pICalendar.Add(GrooveIntlCalendarField_DayOfWeek, PartialWorkWeekDays);
+
+		return pICalendar.DateTime.RawDateTime;
+	}
+
+	//
+	// build up a space delimited string of IDs
+	//
+	function PDHF_IDEnumFromString(i_String)
+	{
+		var CurrentStart=0;
+		var pIIDEnum = CreateDoubleEnum();
+
+		if(0 == i_String.length)
+		{
+			GrooveDebugFunctions.DisplayAssert(0, "Empty ID string");
+			return pIIDEnum.DoubleEnum;
+		}
+
+		while(CurrentStart <= i_String.length-1)
+		{
+			var NextSeparator = i_String.indexOf(" ", CurrentStart);
+
+			// if we're at the end of the list there's no trailing space
+			if(-1 == NextSeparator)
+			{
+				NextSeparator = i_String.length;
+			}
+
+			var IDString = i_String.substr(CurrentStart, NextSeparator-CurrentStart);
+			pIIDEnum.Add(IDString);
+			CurrentStart = NextSeparator+1;
+		}
+
+		return pIIDEnum.DoubleEnum;
+	}
+
+
+	//
+	// extract an IDenum from a string of space delimited IDs
+	//
+	function PDHF_StringFromIDEnum(i_pIDoubleEnum)
+	{
+		var String = "";
+		i_pIDoubleEnum.Reset();
+		if(false == i_pIDoubleEnum.HasMore())
+		{
+			return String;
+		}
+
+		String = i_pIDoubleEnum.OpenNext().toString();
+		while(i_pIDoubleEnum.HasMore())
+		{
+			String += " ";
+			String += i_pIDoubleEnum.OpenNext().toString();
+		}
+
+		return String;
+	}
+
+	function PDHF_IncrementCalculationDeferCount()
+	{
+		if(false == GrooveRunTimeData.HasItem("DeferCalculationCount"))
+		{
+			GrooveRunTimeData.SetItem("DeferCalculationCount", 0);
+		}
+
+		GrooveRunTimeData.SetItem("DeferCalculationCount", GrooveRunTimeData.GetItem("DeferCalculationCount") + 1);
+	}
+
+	function PDHF_DecrementCalculationDeferCount()
+	{
+		var DeferCount;
+		if(false == GrooveRunTimeData.HasItem("DeferCalculationCount") ||
+			0 == (DeferCount = GrooveRunTimeData.GetItem("DeferCalculationCount")))
+		{
+			GrooveErrorFunctions.SetCurrentError(PROJECTTRACKING_E_INVALID_OPERATION, "Unmatched call to Begin/EndMulitpleModifications.");
+			return;
+		}
+		else
+			GrooveRunTimeData.SetItem("DeferCalculationCount", --DeferCount);
+	}
+
+	function PDHF_IsCalculationDeferred()
+	{
+		if(GrooveRunTimeData.HasItem("DeferCalculationCount"))
+		{
+			return 0 != GrooveRunTimeData.GetItem("DeferCalculationCount");
+		}
+		return false;
+	}
+
+
+	function PDHF_AddListener(i_pIListener)
+	{
+		// AMLATER - add support for multiple listeners
+		if(null != GrooveRunTimeData.GetItem("SYNCHPROGRESSCALLBACK"))
+		{
+			GrooveDebugFunctions.DisplayAssert(0, "Already have a listener");
+			return;
+		}
+
+		GrooveRunTimeData.SetItem("SYNCHPROGRESSCALLBACK", i_pIListener);
+	}
+
+	function PDHF_RemoveListener(i_pIListener)
+	{
+		// AMLATER - add support for multiple listeners
+		GrooveRunTimeData.SetItem("SYNCHPROGRESSCALLBACK", null);
+	}
+
+	//
+	// return the progress listener if there is one and we can fire a progress
+	// message for the current execution of this delta
+	//
+	function PDHF_GetProgressListener()
+	{
+		var DynamicsMgr = PropertyList.OpenProperty(PROPERTY_DYNAMICS_MANAGER);
+		var FirstExecution = DynamicsMgr.CommandContext.FirstExecution;
+		var LocallyGenerated = DynamicsMgr.CommandContext.LocallyGenerated;
+		
+		// if this is the first execution of the current delta and it was generated
+		// on this endpoint, we are on the same thread as the UI so we can send
+		// synchronous progress messages
+		if(FirstExecution && LocallyGenerated)
+		{
+			return GrooveRunTimeData.GetItem("SYNCHPROGRESSCALLBACK");
+		}
+
+		// not on the same thread as the UI
+		return null;
+
+	}
+
+	
+	function PDHF_BeginProgress()
+	{
+		var pISynchronousProgress = PDHF_GetProgressListener()
+		if(null != pISynchronousProgress)
+		{
+			pISynchronousProgress.OnProjectCalculationStartSynchronous();
+			return true;
+		}
+		return false;
+	}
+
+	function PDHF_UpdateProgress(i_Progress)
+	{
+		var pISynchronousProgress = PDHF_GetProgressListener()
+		if(null != pISynchronousProgress)
+		{
+			pISynchronousProgress.OnProjectCalculationUpdateSynchronous(i_Progress);
+		}
+	}
+
+	function PDHF_EndProgress()
+	{
+		var pISynchronousProgress = PDHF_GetProgressListener()
+		if(null != pISynchronousProgress)
+		{
+			pISynchronousProgress.OnProjectCalculationEndSynchronous();
+		}
+	}
+
+
+	//
+	// Assumptions: i_RecordID exists in a hierarchical index
+	//
+	// TRANSACTION_REQUIREMENTS: READ
+	//
+	function PDHF_GetParentID(i_RecordID)
+	{
+		return Collection.OpenCollection().OpenRecordID(i_RecordID, GrooveCollectionNavigationOp_PriorParent);
+	}
+
+
+	//
+	// Return the previous sibling for the specified record
+	// Assumptions: i_RecordID exists in a hierarchical index
+	//
+	// TRANSACTION_REQUIREMENTS: READ
+	//
+	function PDHF_GetPreviousSiblingID(i_RecordID)
+	{
+		return Collection.OpenCollection().OpenRecordID(i_RecordID, GrooveCollectionNavigationOp_PriorPeer);
+	}
+
+	//
+	// Find the ID of the parent/child relationship for the specified items
+	//
+	function PDHF_FindParentChildRelationship(i_ParentID, i_ChildID)
+	{
+		var RelationshipID = 0;
+
+		RelationshipID = RelationshipManager.FindRelationship("TaskParentChild", i_ParentID, i_ChildID);
+		if(0 != RelationshipID)
+		{
+			return RelationshipID;
+		}
+
+		RelationshipID = RelationshipManager.FindRelationship("ProjectParentChild", i_ParentID, i_ChildID);
+		if(0 != RelationshipID)
+		{
+			return RelationshipID;
+		}
+
+		GrooveDebugFunctions.DisplayAssert(0, "Missing ParentChild relationship");
+		return RelationshipID;
+	}
+
+
+	//
+	// create new parent/child relationship
+	// 
+	function PDHF_CreateParentChildRelationship(i_ParentID, i_ChildID, i_ValidateRelationships /* true */)
+	{
+		var ValidateRelationships = true;
+
+		// perform validation?
+		if("undefined" != typeof(i_ValidateRelationships))
+		{
+			ValidateRelationships = i_ValidateRelationships;
+		}
+
+		if(GrooveRunTimeData.GetItem("PROJECT_ID") == i_ParentID)
+		{
+			RelationshipName = "ProjectParentChild";
+		}
+		else
+		{
+			RelationshipName = "TaskParentChild";
+		}
+
+		RelationshipManager.CreateRelationship(RelationshipName, i_ParentID, i_ChildID, ValidateRelationships);
+	}
+
+	//
+	// Delete the parent/child relationship with the specified child
+	//
+	function PDHF_DeleteParentChildRelationship(i_Child)
+	{
+		RelationshipManager.DeleteRelationshipsWithRecord("ProjectParentChild", GrooveRelationshipSide_Right, i_Child);
+		RelationshipManager.DeleteRelationshipsWithRecord("TaskParentChild", GrooveRelationshipSide_Right, i_Child);
+	}
+
+
+	//
+	// Return the children for a specified parent
+	//
+	function PDHF_GetChildrenFromRelationships(i_ParentID)
+	{
+		var pITaskIDEnum = RelationshipManager.FindRecordsByRelationship("TaskParentChild", GrooveRelationshipSide_Left, i_ParentID);
+		pITaskIDEnum.Reset();
+		if(pITaskIDEnum.HasMore())
+		{
+			return pITaskIDEnum;
+		}
+
+		var pIProjectIDEnum = RelationshipManager.FindRecordsByRelationship("ProjectParentChild", GrooveRelationshipSide_Left, i_ParentID);
+		pIProjectIDEnum.Reset();
+		if(pIProjectIDEnum.HasMore())
+		{
+			return pIProjectIDEnum;
+		}
+
+		// no children, return empty enum
+		return CreateDoubleEnum().DoubleEnum;
+	}
+
+
+	// 
+	// Debugging aid
+	//
+	// Usage:
+	//
+	//	if(PDHF_IsDebugEnabled())
+	//	{
+	//		DebugValidateParentChildRelationships();
+	//	}
+	//
+	function DebugValidateParentChildRelationships()
+	{
+		// start at the root and verify that each item has the same set of children as
+		// the hierarchical collection recordset
+		RecursiveDebugValidateParentChildRelationships(GrooveRunTimeData.GetItem("PROJECT_ID"));
+	}
+
+	function RecursiveDebugValidateParentChildRelationships(i_ItemID)
+	{
+		var pICollectionChildrenEnum;
+
+		if(PDHF_HasChildren(i_ItemID))
+		{
+			pICollectionChildrenEnum = Collection.OpenCollection().Collection2.OpenDescendantRecordIDEnum(i_ItemID, 1, GrooveDescendantEnumerationOrder_DepthFirst);
+		}
+		else
+		{
+			pICollectionChildrenEnum = CreateDoubleEnum().DoubleEnum;
+		}
+
+		var pIRelationshipMgrChildrenEnum = PDHF_GetChildrenFromRelationships(i_ItemID);
+
+		if(pIRelationshipMgrChildrenEnum.HasMore() != pICollectionChildrenEnum.HasMore())
+		{
+			GrooveDebugFunctions.DisplayAssert(0, "Relationship mismatch");
+			return;
+		}
+
+		// make sure every child in the collection in in the RM
+		while(pICollectionChildrenEnum.HasMore())
+		{
+			var CurrentChildID = pICollectionChildrenEnum.OpenNext();
+			if(false == RSHP_ContainsID(pIRelationshipMgrChildrenEnum, CurrentChildID))
+			{
+				GrooveDebugFunctions.DisplayAssert(0, "Relationship mismatch");
+				return;
+			}
+		}
+
+		// make sure every child in the RM is in the collection
+		pIRelationshipMgrChildrenEnum.Reset();
+		pICollectionChildrenEnum.Reset();
+		while(pIRelationshipMgrChildrenEnum.HasMore())
+		{
+			var CurrentChildID = pIRelationshipMgrChildrenEnum.OpenNext();
+			if(false == RSHP_ContainsID(pICollectionChildrenEnum, CurrentChildID))
+			{
+				GrooveDebugFunctions.DisplayAssert(0, "Relationship mismatch");
+				return;
+			}
+		}
+
+		// we know this level has the same children, recurse and verify the next level
+		pICollectionChildrenEnum.Reset();
+		while(pICollectionChildrenEnum.HasMore())
+		{
+			RecursiveDebugValidateParentChildRelationships(pICollectionChildrenEnum.OpenNext());
+		}
+	}
+
+	function SparseArrayClass()
+	{
+		this.Add = SparseArrayClass_Add;
+		this.Contains = SparseArrayClass_Contains;
+		this.Map = new Object();
+	}
+
+	function SparseArrayClass_Add(i_Item)
+	{
+		this.Map[i_Item] = true;
+	}
+
+	function SparseArrayClass_Contains(i_Item)
+	{
+		return null != this.Map[i_Item];
+	}
+
+	function PDHF_SparseArrayFromEnum(i_pIEnum)
+	{
+		var SparseArray = new SparseArrayClass();
+
+		i_pIEnum.Reset();
+		while(i_pIEnum.HasMore())
+		{
+			SparseArray.Add(i_pIEnum.OpenNext());
+		}
+
+		return SparseArray;
+	}
+
+	//
+	// Returns true if demoting the item would generate a dependency cycle
+	//
+	function PDHF_DoesDemoteCreateCycle(i_DemoteID, i_NewParentID)
+	{
+		// The RM will use two parents for this item when it performs the cycle
+		// detection. Because they are parent/children themselves, it's ok.
+		return RelationshipManager.DetectRelationshipCycle("TaskParentChild", i_NewParentID, i_DemoteID);
+	}
+
+	//
+	// Returns true if adding the specified predecessors to the specified task would
+	// generate a cycle
+	//
+	function PDHF_DoesAddPredecessorsCreateCycle(i_TaskID, i_pIPredecessorIDEnum)
+	{
+		var IID_IGrooveRelationshipEnum = "{54A7ED0F-03D0-4145-BBDB-D5FF4ADE4B60}";
+		var IID_IGrooveRelationship = "{824C0AE8-84B7-4CBA-BD42-FBBCD8B8797C}";
+		var pIRelationshipEnum = CreateUnknownEnumFromStringIIDs(IID_IGrooveRelationshipEnum, IID_IGrooveRelationship);
+
+		i_pIPredecessorIDEnum.Reset();
+		while(i_pIPredecessorIDEnum.HasMore())
+		{
+			var CurrentPredecessorID = i_pIPredecessorIDEnum.OpenNext();
+			var pINewRelationship = RelationshipManager.PackRelationshipAttributes("Predecessor", CurrentPredecessorID, i_TaskID);
+			pIRelationshipEnum.Add(pINewRelationship);
+		}
+		
+		return RelationshipManager.DetectRelationshipCycleWithEnum(pIRelationshipEnum);
+	}
+
+
+	// Change dates, priority, status, according to supplied command element
+	function PDHF_ProcessRecalcul

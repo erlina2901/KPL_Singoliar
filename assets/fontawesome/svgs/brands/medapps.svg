@@ -1,0 +1,28 @@
+ListItem>
+              <ListItem>
+                <PropertyName>SystemRoot</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Languages</Label>
+                <ScriptBlock>
+                $out = ""
+                $i=0
+                foreach($a in $_.Languages) {
+                $out = $out + $a 
+                if($i -eq $_.DefaultLanguageIndex) { $out=$out+" (Default)"}
+                if($i -lt ($_.Languages.count-1)) {$out=$out+"`r`n"}
+                $i=$i+1 
+                } 
+                return $out;
+                </ScriptBlock>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+    <View>
+      <Name>WimImageInfoObjectList</Name>
+      <ViewSelectedBy>
+        <TypeName>Microsoft.Dism.Commands.WimImageInfoObject</TypeName>
+ 

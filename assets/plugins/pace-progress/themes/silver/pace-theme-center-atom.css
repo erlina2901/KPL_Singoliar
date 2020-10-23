@@ -1,0 +1,67 @@
+ribute>
+              <xsl:value-of select="@name"/>
+            </td>
+            <td style="width: 90px;">
+              <xsl:call-template name="RootCauseStatus"/>
+            </td>
+            <td style="width: 20px;">
+              <xsl:call-template name="RootCauseImage"/>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <xsl:if test="string-length(Data[@id='Description'])">
+      <tr style="padding-top: 8px">
+        <td class="content">
+          <div style="width: 420px;">
+            <xsl:copy-of select="Data[@id='Description']"/>
+          </div>
+        </td>
+      </tr>
+    </xsl:if>
+    <tr>
+      <td class="content">
+      <xsl:if test="position() != last()">
+        <xsl:attribute name="style">border-bottom: solid 1px lightgrey; padding-bottom: 12px;</xsl:attribute>
+      </xsl:if>
+        <div style="display: 'none';" expand="true">
+        <xsl:attribute name="id">c_<xsl:value-of select="$tag"/></xsl:attribute>
+          <xsl:apply-templates select="DetectionInformation//Detail">
+            <xsl:sort select="@verbosity = 'Error'" data-type="text" order="descending"/>
+            <xsl:sort select="@verbosity = 'Warning'" data-type="text" order="descending"/>
+            <xsl:sort select="@verbosity = 'Informational'" data-type="text" order="descending"/>
+            <xsl:sort select="@id" data-type="text"/>
+          </xsl:apply-templates>
+          <xsl:if test="Data[@id='Status'] != 'Not Detected'">
+            <xsl:apply-templates select=".//Resolution">
+              <xsl:sort select="Data[@id='Status'] = 'Failed'" data-type="text" order="descending"/>
+              <xsl:sort select="Data[@id='Status'] = 'Succeeded'" data-type="text" order="descending"/>
+              <xsl:sort select="Data[@id='Status'] = 'Informational'" data-type="text" order="descending"/>
+              <xsl:sort select="Data[@id='Status'] = 'Not Run'" data-type="text" order="descending"/>
+              <xsl:sort select="@id" data-type="text" order="ascending"/>
+            </xsl:apply-templates>
+          </xsl:if>
+        </div>
+      </td>
+    </tr>
+  </table>
+</xsl:template>
+
+<xsl:template name="RootCauseStatus">
+  <xsl:variable name="strings">
+    <String id="Fixed">Fixed</String>
+    <String id="Not Detected">Issue not present</String>
+    <String id="Not Fixed">Not fixed</String>
+    <String id="Detected">Detected</String>
+  </xsl:variable>
+  <div>
+    <xsl:if test="Data[@id='Status'] = 'Not Detected'">
+      <xsl:attribute name="class">italic</xsl:attribute>
+    </xsl:if>
+    <xsl:call-template name="label">
+      <xsl:with-param name="strings" select="$strings"/>
+      <xsl:with-param name="label" select="Data[@id='Status']"/>
+    </xsl:call-template>
+  </div>
+</xsl:template>

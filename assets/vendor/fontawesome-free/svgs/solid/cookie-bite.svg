@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProductDescription language="en-us" xmlns="http://schemas.microsoft.com/appx/2012/ProductDescription" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="\\kingkong\root\PUBLIC\Schema\ProductDescription\ProductDescription-universal-M.xsd" xml:lang="en-US" Release="" FallbackLanguage="en-US">
+  <!--PDPRootPath=""-->
+
+  <Keywords>
+    <!-- Valid length: 45 character limit, up to 7 -->
+    <Keyword>
+      3D Viewer
+    </Keyword>
+    <Keyword>
+      gemengde realiteit
+    </Keyword>
+    <Keyword>
+      3D-model
+    </Keyword>
+    <Keyword>
+      Bekyk 3D
+    </Keyword>
+    <Keyword>
+      3D-aansig
+    </Keyword>
+    <Keyword>
+      GR
+    </Keyword>

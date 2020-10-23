@@ -1,0 +1,18 @@
+y>
+    <dependentAssembly dependencyType="install">
+      <assemblyIdentity name="Microsoft-Windows-XWizards-Win32Plugin-Mui.Resources" version="10.0.18362.1" processorArchitecture="wow64" language="de-DE" publicKeyToken="31bf3856ad364e35" buildType="release" versionScope="nonSxS" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install">
+      <assemblyIdentity name="Microsoft-Windows-CertificateServices-certadm-dll.Resources" version="10.0.18362.1" processorArchitecture="x86" language="de-DE" publicKeyToken="31bf3856ad364e35" buildType="release" versionScope="nonSxS" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install">
+      <assemblyIdentity name="Microsoft-Windows-CertificateServices-certocm-dll.Resources" version="10.0.18362.1" processorArchitecture="x86" language="de-DE" publicKeyToken="31bf3856ad364e35" buildType="release" versionScope="nonSxS" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install">
+      <assemblyIdentity name="Microsoft-Windows-DirectoryServices-Domain-Tools-CommandLine-NetDom.Resources" version="10.0.18362.113" processorArchitecture="x86" language="de-DE" publicKeyToken="31

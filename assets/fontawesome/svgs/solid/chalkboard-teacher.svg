@@ -1,0 +1,20 @@
+ersion="1.0.0.0"
+    processorArchitecture="amd64"
+/>
+<description>Regional and Language Options control panel</description>
+<dependency>
+    <dependentAssembly>
+        <assemblyIdentity
+            type="win32"
+            name="Microsoft.Windows.Common-Controls"
+            version="6.0.0.0"
+            language="*"
+            processorArchitecture="amd64"
+            publicKeyToken="6595b64144ccf1df"
+        />
+    </dependentAssembly>
+</dependency>
+<trustInfo xmlns="urn:schemas-microsoft-com:asm.v3">
+    <security>
+        <requestedPrivileges>
+            <requestedE

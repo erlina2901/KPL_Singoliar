@@ -1,0 +1,27 @@
+ional"/>
+  </xs:complexType>
+
+  <xs:element name="TaskChoice" abstract="true"/>
+  <xs:element name="Task" substitutionGroup="TaskChoice">
+    <xs:complexType>
+      <xs:attribute name="Type" type="t:ST_BackgroundTasks_2010" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- @@BEGIN_SDKSPLIT
+
+  APPX MANIFEST SCHEMA (VERSION 4)
+
+  This is the overall manifest schema for app model version 6.4 of Windows and
+  Windows Phone.  This is a copy of the Windows 8 schema, with some additions in
+  the 2013, 2014, and OneCore namespaces.  Types in these new namespaces are
+  imported into this schema from AppxManifestSchema2013_v2.xsd,
+  AppxManifestSchema2014.xsd, FoundationManifestSchemaForWinBlue.xsd, and
+  UapManifestSchemaForWinBlue.xsd.  This schema is only used to validate
+  manifests that define OSMinVersion as 6.4.
+
+  !!!WARNING!!!
+
+  This schema is closed for any

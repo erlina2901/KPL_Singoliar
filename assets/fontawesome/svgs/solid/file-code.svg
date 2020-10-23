@@ -1,0 +1,26 @@
+Types" type="CT_CharmsSupportedFileTypes" minOccurs="0"/>
+      <xs:element name="DataFormat" type="t:ST_DataFormat" minOccurs="0" maxOccurs="10000"/>
+    </xs:sequence>
+    <xs:attribute ref="m2:Description" use="optional"/>
+  </xs:complexType>
+
+  <!--FILE PICKER-->
+  <xs:complexType name="CT_FilePicker">
+    <xs:sequence>
+      <xs:element name="SupportedFileTypes" type="CT_CharmsSupportedFileTypes"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!--CHARMS EXTENSION SCHEMA Types-->
+  <xs:complexType name="CT_CharmsSupportedFileTypes">
+    <xs:choice>
+      <xs:element name="FileType" minOccurs="1" maxOccurs="10000" type="t:ST_FileType"/>
+      <xs:element name="SupportsAnyFileType" minOccurs="1" maxOccurs="1"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <!--ACTIVATABLE CLASS EXTENSION SCHEMA-->
+  <!--IN-PROCESS SERVER EXTENSION-->
+  <xs:complexType name="CT_InProcessServer">
+    <xs:sequence>
+      <xs:ele

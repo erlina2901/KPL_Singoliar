@@ -1,0 +1,57 @@
+             </xsl:call-template>
+                            <xsl:apply-templates select="@warning|@note"/>
+                          </xsl:for-each>
+                        </xsl:when>
+                      </xsl:choose>
+                      <xsl:if test="@units">
+                        <xsl:value-of select="' '"/>
+                        <xsl:call-template name="label">
+                          <xsl:with-param name="label" select="@units"/>
+                        </xsl:call-template>
+                      </xsl:if>
+                    </td>
+                  </tr>
+                </xsl:for-each>
+                <xsl:if test="position() != last()">
+                  <tr><td colspan="2" height="5"/></tr>
+                </xsl:if>
+              </xsl:for-each>
+            </table>
+          </td>
+        </xsl:if>
+      </xsl:for-each>
+    </tr>
+  </table>
+</div>
+
+</xsl:if>
+
+<!-- ********** SECTION HEADER ********** -->
+
+<xsl:for-each select="Report/Section[(Table[Item[@level &lt;= $Level or not(@level)][not(@visible='false')]][@level &lt;= $Level or not(@level)][ not( @visible='false')]) or (@name='advice' and //@warning) and (@level &gt; $Level or not(@level))]">
+<xsl:sort select="not(@key) or @key &lt; 0" data-type="number"/>
+<xsl:sort select="@key" data-type="number"/>
+
+<xsl:variable name="sectionId" select="ms:tag()"/>
+<div class="title-bar">
+<xsl:attribute name="onclick">folder(c_<xsl:value-of select="$sectionId"/>)</xsl:attribute>
+  <table class="layout">
+    <tr>
+      <td class="h1" width="400">
+        <xsl:call-template name="title"/>
+        <xsl:apply-templates select="@warning|@note"/>
+      </td>
+      <td>
+        <a style="cursor:hand;text-decoration:none;" onclick="showTOC()">
+          <xsl:call-template name="image">
+            <xsl:with-param name="src" select="'contents'"/>
+          </xsl:call-template>
+        </a>
+      </td>
+      <td>
+        <a style="cursor:hand;text-decoration:none;">
+          <div style="float:right">
+            <xsl:choose>
+              <xsl:when test="not(@name='advice' or @expand)">
+                <xsl:call-template name="image">
+                  <xsl
