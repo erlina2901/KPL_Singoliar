@@ -1,4 +1,4 @@
-<!-- <body style="background-image: url('<?= base_url('assets/img/background.jpg'); ?>');"> -->
+<!-- <body style="background-image: url('<?= filter_var(base_url('assets/img/background.jpg'), FILTER_DEFAULT); ?>');"> -->
 <link href="assets/vendor/bootstrap/css/bootstrap.min.js" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="assets/css/sb-admin-2.css">
 
