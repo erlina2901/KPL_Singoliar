@@ -8,7 +8,7 @@
 
             <div class="card mb-5  align-self-center">
                 <div class="card-body">
-                    <p class="card-img-top ml-auto mr-auto"> <img src="<?= base_url('assets/img/produk/' . $alat['gambar']); ?>" style="max-width:300px;"> </p>
+                    <p class="card-img-top ml-auto mr-auto"> <img src="<?= filter_var(base_url('assets/img/produk/' . $alat['gambar']), FILTER_DEFAULT); ?>" style="max-width:300px;"> </p>
                     <h5 class="card-title"><?= $alat['nama_alat']; ?></h5>
                     <h6><?php echo rupiah2 ($alat['harga']); ?></h6>
                     <p class="card-text"><?= $alat['deskripsi']; ?></p>
@@ -19,7 +19,7 @@
                             <a href="<?= base_url(); ?>member" class="btn btn-success"><i class="fa fa-chevron-circle-left mr-1" aria-hidden="true"></i>Kembali</a>
                         </div>
                         <div class="col-lg-8">
-                            <form class="form-inline ml-auto " method="post" action="<?= base_url('alat/tambahPemesanan/' . $alat['id_alat']); ?>">
+                            <form class="form-inline ml-auto " method="post" action="<?= filter_var(base_url('alat/tambahPemesanan/' . $alat['id_alat']), FILTER_DEFAULT); ?>">
                             <input class="form-control col-md-9 mr-2" type="text" placeholder="Alamat" name="alamat" minlength="1" maxlength="50" required>
                             <button class="btn btn-success my-2 my-sm-0" type="submit"><i class="fa mr-1" aria-hidden="true"></i>Sewa</button>
                                 <input class="form-control col-md-4 mr-2" type="text" placeholder="Jumlah" name="jumlah" minlength="1" maxlength="4" pattern="\d*" required>
