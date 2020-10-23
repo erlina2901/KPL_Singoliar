@@ -18,7 +18,7 @@
                                         <h1 class="h4 text-gray-900 mb-4">SINGO LIAR Login</h1>
                                     </div>
                                     <?= $this->session->flashdata('message'); ?>
-                                    <form class="user" method="post" action="<?= base_url('auth'); ?> ">
+                                    <form class="user" method="post" action="<?= filter_var(base_url('auth'), FILTER_DEFAULT); ?> ">
                                         <div class="form-group">
                                             <input type="text" class="form-control" id="email" name="email" placeholder="Email..." value="<?= set_value('email'); ?>">
                                             <?= form_error('email', '<small class="text-danger pl-3" >', '</small>'); ?>
@@ -33,10 +33,10 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small text-danger" href="<?= base_url('auth/forgotpassword'); ?>">Lupa Password??</a>
+                                        <a class="small text-danger" href="<?= filter_var(base_url('auth/forgotpassword'), FILTER_DEFAULT); ?>">Lupa Password??</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small text-success" href="<?= base_url('auth/registration'); ?>">Buat Akun Sekarang!</a>
+                                        <a class="small text-success" href="<?= filter_var(base_url('auth/registration'), FILTER_DEFAULT); ?>">Buat Akun Sekarang!</a>
                                     </div>
                                 </div>
                             </div>
