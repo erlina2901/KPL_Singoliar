@@ -66,7 +66,7 @@
 					</div>
 
 					<button type="submit" name="submit" value="tambah" class="btn btn-primary">Simpan</button>
-					<a href="<?= base_url('admin/alat_berat'); ?>" class="btn btn-danger">Batal</a>
+					<a href="<?= filter_var(base_url('admin/alat_berat'), FILTER_DEFAULT); ?>" class="btn btn-danger">Batal</a>
 
 					</form>
 					<br>
