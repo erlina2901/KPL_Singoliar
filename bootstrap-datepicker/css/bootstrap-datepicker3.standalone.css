@@ -109,6 +109,7 @@
   color: #777777;
   cursor: default;
 }
+
 .datepicker table tr td.highlighted {
   color: #000;
   background-color: #d9edf7;
