@@ -17,7 +17,7 @@
           <img src="<?= base_url('assets/img/avatar/') . $admin['image']; ?>" class="img-rounded elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="<?= base_url('admin/profile') ?>" class="d-block"> <?= $admin['name']; ?> </a>
+          <a href="<?= filter_var(base_url('admin/profile'), FILTER_DEFAULT) ?>" class="d-block"> <?= $admin['name']; ?> </a>
         </div>
       </a>
     </div>
@@ -58,7 +58,7 @@
         </li>
         <li class="nav-header">Alat</li>
         <li class="nav-item">
-          <a href="<?= base_url() ?>admin/alat_berat" class="nav-link">
+          <a href="<?= filter_var(base_url(), FILTER_DEFAULT) ?>admin/alat_berat" class="nav-link">
             <i class="nav-icon fas fa-key"></i>
             <p>
               Alat Berat
@@ -87,7 +87,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-        <a class="btn btn-primary" href="<?= base_url() . 'auth/logout'; ?>">Ya</a>
+        <a class="btn btn-primary" href="<?= filter_var(base_url() . 'auth/logout', FILTER_DEFAULT); ?>">Ya</a>
       </div>
     </div>
   </div>
