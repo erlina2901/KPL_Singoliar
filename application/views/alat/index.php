@@ -20,7 +20,7 @@
                         <p class="card-text"><?= $row['deskripsi']; ?></p>
                     </div>
                     <div class="card-footer bg-transparent border-0">
-                        <a href="<?= base_url() ?>alat/detail/<?= $row['id_alat']; ?>" class="btn btn-outline-primary">Detail</a>
+                        <a href="<?= filter_var(base_url(), FILTER_DEFAULT) ?>alat/detail/<?= $row['id_alat']; ?>" class="btn btn-outline-primary">Detail</a>
                     </div>
                 </div>
             </div>
