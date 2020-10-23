@@ -18,7 +18,7 @@
           <?= $this->session->flashdata('message'); ?>
           <div class="flash-datap" data-flashdatap="<?= $this->session->flashdata('flashp'); ?>"></div>
 
-          <a href="<?= base_url('admin/addProduk'); ?>" class="btn btn-success"><i class="fas fa-plus"></i> Tambah</a>
+          <a href="<?= filter_var(base_url('admin/addProduk'), FILTER_DEFAULT); ?>" class="btn btn-success"><i class="fas fa-plus"></i> Tambah</a>
           <br><br>
           <div class="table-responsive">
             <table class="table table-bordered text-center" id="tabel" width="100%" cellspacing="0">
@@ -49,8 +49,8 @@
                     <td><?= $data->deskripsi ?></td>
                     <td width="150px">
                       <!-- <button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i> Edit</button> -->
-                      <a href="<?= base_url(); ?>admin/produkEdit/<?= $data->id_produk; ?>" class="btn btn-warning btn-xs float-left"><i class="fas fa-edit"></i> Edit</></a>
-                      <a href="<?= base_url(); ?>admin/deleteProduk/<?= $data->id_produk; ?>" class="btn btn-danger btn-xs float-left tombol-hapusp ml-1"> <i class="fas fa-trash-alt"></i> Hapus</a>
+                      <a href="<?= filter_var(base_url(), FILTER_DEFAULT); ?>admin/produkEdit/<?= $data->id_produk; ?>" class="btn btn-warning btn-xs float-left"><i class="fas fa-edit"></i> Edit</></a>
+                      <a href="<?= filter_var(base_url(), FILTER_DEFAULT); ?>admin/deleteProduk/<?= $data->id_produk; ?>" class="btn btn-danger btn-xs float-left tombol-hapusp ml-1"> <i class="fas fa-trash-alt"></i> Hapus</a>
 
                       <!-- <?= anchor('admin/produkEdit/' . $data->id_produk, '<button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#"><i class="fas fa-edit"></i> Edit</button>');  ?> -->
                       <!-- <?= anchor('admin/deleteProduk/' . $data->id_produk, '<button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-trash-alt"></i> Hapus</button>');  ?> -->
