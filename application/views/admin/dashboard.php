@@ -7,7 +7,7 @@
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="<?= base_url("admin/") ?>dashboard">Dashboard</a>
+          <a href="<?= filter_var(base_url("admin/"), FILTER_DEFAULT) ?>dashboard">Dashboard</a>
         </li>
       </ol>
 
