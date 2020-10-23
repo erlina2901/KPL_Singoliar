@@ -20,6 +20,7 @@
 .datepicker-rtl.dropdown-menu {
   left: auto;
 }
+
 .datepicker-rtl table tr td span {
   float: right;
 }
@@ -37,6 +38,7 @@
   border-bottom-color: rgba(0, 0, 0, 0.2);
   position: absolute;
 }
+
 .datepicker-dropdown:after {
   content: '';
   display: inline-block;
@@ -46,15 +48,19 @@
   border-top: 0;
   position: absolute;
 }
+
 .datepicker-dropdown.datepicker-orient-left:before {
   left: 6px;
 }
+
 .datepicker-dropdown.datepicker-orient-left:after {
   left: 7px;
 }
+
 .datepicker-dropdown.datepicker-orient-right:before {
   right: 6px;
 }
+
 .datepicker-dropdown.datepicker-orient-right:after {
   right: 7px;
 }
@@ -69,11 +75,13 @@
   border-bottom: 0;
   border-top: 7px solid #999;
 }
+
 .datepicker-dropdown.datepicker-orient-top:after {
   bottom: -6px;
   border-bottom: 0;
   border-top: 6px solid #fff;
 }
+
 .datepicker table {
   margin: 0;
   -webkit-touch-callout: none;
