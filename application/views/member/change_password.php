@@ -9,6 +9,7 @@
         <div class="container-fluid">
             <!-- <div class="col-lg-12"> -->
             <?= $this->session->flashdata('message'); ?>
+			<?= esc_html ($his->session->flashdata('message'); ?>
             <!-- </div> -->
             <div class="row">
                 <div class="col-lg-6">
