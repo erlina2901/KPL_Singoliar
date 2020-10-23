@@ -58,11 +58,11 @@
 
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="<?= base_url('admin/profile') ?>">
+          <a class="dropdown-item" href="<?= filter_var(base_url('admin/profile'), FILTER_DEFAULT) ?>">
             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
             Profile
           </a>
-          <a class="dropdown-item" href="<?= base_url('admin/change_password') ?>">
+          <a class="dropdown-item" href="<?= filter_var(base_url('admin/change_password'), FILTER_DEFAULT) ?>">
             <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
             Ubah Password
           </a>
