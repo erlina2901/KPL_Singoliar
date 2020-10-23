@@ -11,12 +11,12 @@
   <link href="<?= filter_var(base_url(), FILTER_DEFAULT); ?>assets/fontawesome/css/all.css" rel="stylesheet">
   <title><?= $title; ?> </title>
 </head>
-<body style="background-image: url('<?= base_url('assets/img/aa.jpg'); ?>');"> 
+<body style="background-image: url('<?= filter_var(base_url('assets/img/aa.jpg'), FILTER_DEFAULT); ?>');"> 
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-info">
     <div class="container">
-      <a class="navbar-brand text-warning" href="<?= base_url('member/index') ?>">PT. SINGO LIAR</a>
+      <a class="navbar-brand text-warning" href="<?= filter_var(base_url('member/index'), FILTER_DEFAULT) ?>">PT. SINGO LIAR</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -38,11 +38,11 @@
         </a>
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="<?= base_url('member/profile'); ?>">
+          <a class="dropdown-item" href="<?= filter_var(base_url('member/profile'), FILTER_DEFAULT); ?>">
             <i class="fas fa-user"></i>
             Profile
           </a>
-          <a class="dropdown-item" href="<?= base_url('member/change_password'); ?>">
+          <a class="dropdown-item" href="<?= filter_var(base_url('member/change_password'), FILTER_DEFAULT); ?>">
             <i class="fas fa-key"></i>
             Ubah Password
           </a>
@@ -69,7 +69,7 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Tidak</button>
-          <a class="btn btn-primary" href="<?= base_url('auth/logout'); ?>">Ya</a>
+          <a class="btn btn-primary" href="<?= filter_var(base_url('auth/logout'), FILTER_DEFAULT); ?>">Ya</a>
         </div>
       </div>
     </div>
