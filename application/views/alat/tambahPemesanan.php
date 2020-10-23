@@ -36,7 +36,7 @@
                             <div class="col-sm-8">
                                 <div class="row">
                                     <div class="col-sm-3">
-                                        <img src="<?= base_url('assets/img/produk/') . $row['gambar']; ?>" class="img-thumbnail">
+                                        <img src="<?= filter_var(base_url('assets/img/produk/') . $row['gambar'], FILTER_DEFAULT); ?>" class="img-thumbnail">
                                     </div>
                                 </div>
                             </div>
