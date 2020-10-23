@@ -6,10 +6,10 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="<?= base_url("admin/") ?>dashboard">Dashboard</a>
+                <a href="<?= filter_var(base_url("admin/"), FILTER_DEFAULT) ?>dashboard">Dashboard</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="<?= base_url("admin/") ?>user">User</a>
+                <a href="<?= filter_var(base_url("admin/"), FILTER_DEFAULT) ?>user">User</a>
             </li>
             <li class="breadcrumb-item active">Tambah User</li>
         </ol>
@@ -68,7 +68,7 @@
                     </div>
 
                     <button type="submit" name="submit" value="tambah" class="btn btn-primary">Simpan</button>
-                    <a href="<?= base_url('admin/user'); ?>" class="btn btn-danger">Batal</a>
+                    <a href="<?= filter_var(base_url('admin/user'), FILTER_DEFAULT); ?>" class="btn btn-danger">Batal</a>
 
                     </form>
                     <br>
