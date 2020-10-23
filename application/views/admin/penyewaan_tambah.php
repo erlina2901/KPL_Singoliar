@@ -9,7 +9,7 @@
 				<a href="<?= base_url("admin/") ?>dashboard">Dashboard</a>
 			</li>
 			<li class="breadcrumb-item">
-				<a href="<?= base_url("admin/") ?>sewa">Penyewaan</a>
+				<a href="<?= filter_var(base_url("admin/"), FILTER_DEFAULT) ?>sewa">Penyewaan</a>
 			</li>
 			<li class="breadcrumb-item active">Tambah Penyewaan</li>
 		</ol>
