@@ -19,7 +19,7 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="<?= base_url('assets/img/produk/singo.jpg'); ?> " class="d-block w-100 rounded" alt="...">
+                            <img src="<?= filter_var(base_url('assets/img/produk/singo.jpg'), FILTER_DEFAULT); ?> " class="d-block w-100 rounded" alt="...">
                             
                         </div>
                     </div>
@@ -33,13 +33,13 @@
         <?php foreach ($alat as $row) { ?>
             <div class="col-xl-4 col-sm-12 mb-3">
                 <div class="card category shadow-sm pull-right">
-                    <img class="card-img-top" src="<?= base_url('assets/img/produk/' . $row['gambar']); ?> " height="225px" alt="Card image cap">
+                    <img class="card-img-top" src="<?= filter_var(base_url('assets/img/produk/' . $row['gambar']), FILTER_DEFAULT); ?> " height="225px" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title"><?= $row['nama_alat']; ?></h5>
                         <h6 class="badge badge-pill badge-success"><?php echo rupiah2 ($row['harga']); ?>,-/jam</h6>
                     </div>
                     <div class="card-footer bg-success border-0">
-                        <a href="<?= base_url() ?>alat/detail/<?= $row['id_alat']; ?>" class="btn btn-sm btn-info">Detail</a>
+                        <a href="<?= filter_var(base_url(), FILTER_DEFAULT) ?>alat/detail/<?= $row['id_alat']; ?>" class="btn btn-sm btn-info">Detail</a>
                     </div>
                 </div>
             </div>
