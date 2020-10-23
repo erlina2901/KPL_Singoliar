@@ -13,7 +13,7 @@
         <?php foreach ($alat as $row) { ?>
             <div class="col-xl-4 col-sm-12 mb-4">
                 <div class="card category shadow-sm pull-right">
-                    <img class="card-img-top" src="<?= base_url('assets/img/produk/' . $row['gambar']); ?> " height="225px" alt="Card image cap">
+                    <img class="card-img-top" src="<?= filter_var(base_url('assets/img/produk/' . $row['gambar']), FILTER_DEFAULT); ?> " height="225px" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title"><?= $row['nama_alat']; ?></h5>
                         <h6>Rp<?= $row['harga']; ?>,-/</h6>
