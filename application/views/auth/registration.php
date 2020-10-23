@@ -1,4 +1,4 @@
-<body style="background-image: url('<?= base_url('assets/img/b.jpeg'); ?>');">
+<body style="background-image: url('<?= filter_var(base_url('assets/img/b.jpeg'), FILTER_DEFAULT); ?>');">
 <body class="bg-gradient-primary">
 
     <div class="container">
@@ -12,7 +12,7 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Buat Akun!</h1>
                             </div>
-                            <form class="user" method="post" action="<?= base_url('auth/registration'); ?> ">
+                            <form class="user" method="post" action="<?= filter_var(base_url('auth/registration'), FILTER_DEFAULT); ?> ">
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user" id="name" name="name" placeholder="Full Name" value="<?= set_value('name'); ?>">
                                     <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
